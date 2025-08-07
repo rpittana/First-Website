@@ -1,11 +1,38 @@
-h1 {
-    color: red;
-    font-size: 24px;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+header {
+    display: flex;
+    align-items: baseline;
+    gap: 32px;
+    background-color: rgb(36, 36, 36);
+    
 }
 
-p {
-    color: blue;
+header img {
+    margin-left: auto;
+    display: block;
+    max-height: 100px;
+}
+
+body {
+    font-family: "Cascadia Code", sans-serif;
+    background-color: rgb(40, 40, 40);
+    color: white
+}
+
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    text-align: left;
+}
+h2, h3, h4, h5, h6 {
+    font-family: inherit; /* Or specify a different font for headers */
+}
+
+ul {
+    list-style-type: none;
+    gap: 16px;
+}
+
+nav a {
+    margin-right: 40px;
+    font-size: 24px;
 }
