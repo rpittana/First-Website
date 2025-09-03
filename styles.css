@@ -1,25 +1,27 @@
 header {
     display: flex;
-    align-items: first baseline;
+    align-items: center;                 /* fixed: use a valid alignment */
     gap: 50px;
     background-color: rgb(20, 20, 20);
     width: 100%;
     padding: 12px 20px;
     box-sizing: border-box;
 
+    position: fixed;                     /* keep header visible at top */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
 }
 
-header img {
-    margin-left: auto;
-    display: block;
-    max-height: 100px;
-}
-
+/* ensure the page content sits below the fixed header; header height set by JS into --header-height */
 body {
     font-family: "Cascadia Code", sans-serif;
     background-color: rgb(40, 40, 40);
     color: white;
     margin: 0;
+    min-height: 100vh;
+    padding-top: var(--header-height, 72px); /* fallback header height */
 }
 
 h1 {
@@ -28,9 +30,14 @@ h1 {
     font-size: 40px;
     text-align: left;
 }
-h2, h3, h4, h5, h6 {
-    padding-left: 20px;
-    font-family: inherit; /* Or specify a different font for headers */
+h2 {
+  padding-left: 20px;
+  font-size: clamp(24px, 4vw + 1rem, 60px);
+  font-family: inherit; /* Or specify a different font for headers */
+}
+h3, h4, h5, h6 {
+  padding-left: 20px;
+  font-family: inherit; /* Or specify a different font for headers */
 }
 
 ul {
@@ -214,17 +221,20 @@ p {
   }
 }
 
+/* letter — take the full remaining viewport height under the header */
 .letter {
-  max-width: 900px;
-  margin: 28px auto;
+  margin: 0 auto 28px;                         /* no top margin so it fills from under header */
   padding: 24px;
   background: rgba(0, 0, 0, 0.62); /* dark, semi-transparent box */
   color: #fff;
-  border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.55);
   box-sizing: border-box;
 
-  /* start hidden and slide up a bit */
+  /* make letter fill the viewport minus header */
+  min-height: calc(100vh - var(--header-height, 72px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;       /* center letter content vertically */
   opacity: 0;
   transform: translateY(10px);
   animation: letter-fade 640ms cubic-bezier(.16,.84,.24,1) 120ms forwards;
@@ -249,4 +259,29 @@ p {
     opacity: 1;
     transform: none;
   }
+}
+
+.color-shift {
+  display: inline-block;
+  --color: #ff5a5a;   /* set per-element with style="--color:..." */
+  color: #ffffff;     /* start fully white */
+  transition: color 160ms linear; /* JS will update color to the interpolated value */
+}
+
+/* accessibility: if user prefers reduced motion, disable smoothing */
+@media (prefers-reduced-motion: reduce) {
+  .color-shift { transition: none; }
+}
+
+/* keep the logo pinned to the right of the header */
+header img {
+  margin-left: auto;    /* pushes the image to the far right in a flex container */
+  width: 50px;          /* adjust size as needed */
+  height: auto;
+  display: block;
+}
+
+/* responsive tweak */
+@media (max-width: 480px) {
+  header img { width: 40px; }
 }
