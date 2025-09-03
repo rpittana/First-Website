@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-US">
     <head>
+        <link rel="icon" type="image/png" href="logo.png">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Roman Pittana</title>
@@ -17,11 +18,12 @@
                 <ul>
                     <li><a href=resume.html title="resume">resume</a></li>
                     <li><a href=https://github.com/rpittana title="github">github</a></li>
+                    <li><a href=https://www.linkedin.com/in/roman-pittana-5191072b8/ title="linkedin">linkedin</a></li>
                 </ul>
             </nav>
             <img 
             src="logo.png"
-            alt="gato"
+            alt="logo"
             width="50"
             height="50"
             >
@@ -62,7 +64,24 @@
                 </div>
             </section>
         </main>
-        
-        
+
+        <footer class="contact-footer">
+            <section id="contact" class="contact-section">
+                <h2>Contact</h2>
+                <form class="contact-form" action="mailto:romanpittana@gmail.com" method="POST" enctype="text/plain">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+
+                    <button type="submit">Send</button>
+                </form>
+                <p class="contact-note">Or email me directly: <a href="mailto:romanpittana@gmail.com">romanpittana@gmail.com</a></p>
+            </section>
+        </footer>
     </body>
 </html>
