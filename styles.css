@@ -14,6 +14,133 @@ header {
     z-index: 60;
 }
 
+/* Navigation */
+.nav {
+    position: relative;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hamburger {
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Hamburger animation when open */
+.nav-toggle.active .hamburger:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active .hamburger:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active .hamburger:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.nav-menu {
+    list-style-type: none;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    header {
+        gap: 20px;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: var(--header-height, 72px);
+        right: -250px;
+        width: 200px;
+        background: rgb(20, 20, 20);
+        border-radius: 8px 0 0 8px;
+        box-shadow: -4px 0 24px rgba(0, 0, 0, 0.6);
+        flex-direction: column;
+        gap: 0;
+        padding: 20px 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(0);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        right: 0;
+    }
+
+    .nav-menu li {
+        width: 100%;
+    }
+
+    .nav-menu li a {
+        display: block;
+        padding: 16px 24px;
+        color: #fff;
+        text-decoration: none;
+        transition: background 0.2s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-menu li:last-child a {
+        border-bottom: none;
+    }
+
+    .nav-menu li a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        padding-left: 32px;
+    }
+
+    /* Optional: backdrop overlay when menu is open */
+    .nav-menu.active::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: -1;
+        pointer-events: none;
+    }
+}
+
+/* keep the logo pinned to the right of the header */
+header img {
+    margin-left: auto;
+    width: 50px;
+    height: auto;
+    display: block;
+}
+
+/* responsive tweak */
+@media (max-width: 480px) {
+    header img { width: 40px; }
+}
+
 /* ensure the page content sits below the fixed header; header height set by JS into --header-height */
 body {
     font-family: "Cascadia Code", sans-serif;
@@ -38,15 +165,6 @@ h2 {
 h3, h4, h5, h6 {
   padding-left: 20px;
   font-family: inherit; /* Or specify a different font for headers */
-}
-
-ul {
-    list-style-type: none;
-    gap: 16px;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
 }
 
 nav a {

@@ -7,11 +7,43 @@
         document.documentElement.style.setProperty('--header-height', `${Math.ceil(h)}px`);
     }
 
+    // hamburger menu toggle
+    function initHamburgerMenu() {
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (!navToggle || !navMenu) return;
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // close menu when clicking on a link
+        navMenu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    }
+
     // run on load and on resize so the layout remains correct
     window.addEventListener('load', updateHeaderHeight);
     window.addEventListener('resize', updateHeaderHeight);
     // also call it now in case script runs after DOM ready (defer is used)
     updateHeaderHeight();
+    
+    // initialize hamburger menu
+    initHamburgerMenu();
 
     const projects = document.querySelectorAll('.project');
     if (!('IntersectionObserver' in window) || projects.length === 0) {
